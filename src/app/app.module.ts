@@ -7,6 +7,8 @@ import { CursosPage } from '../pages/cursos/cursos';
 import { ProfessoresPage } from '../pages/professores/professores';
 import { AlunosPage } from '../pages/alunos/alunos';
 
+import { DetalheCursoPage } from '../pages/detalhe-curso/detalhe-curso';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -15,7 +17,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     CursosPage,
     ProfessoresPage,
-    AlunosPage
+    AlunosPage,
+	DetalheCursoPage
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     CursosPage,
     ProfessoresPage,
-    AlunosPage
+    AlunosPage,
+	DetalheCursoPage
   ],
   providers: [
     StatusBar,
