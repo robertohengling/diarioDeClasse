@@ -9,8 +9,7 @@
 
 <ion-content>
 	<ion-list>
-		<ion-item  *ngFor="let curso of cursos">
-		<ion-item-sliding>
+		<ion-item-sliding *ngFor="let curso of cursos">
 			<ion-item (click)="onClick(curso);">
 				{{curso.nome}}
 			</ion-item>
@@ -18,13 +17,12 @@
 				<button color="danger" ion-button (click)="removerCurso(curso);">Remover</button>
 			</ion-item-options>
 		</ion-item-sliding>
-		</ion-item>
 	</ion-list>
 	<ion-footer>
-		<ion-toolbar color="primary">
+		<ion-toolbar color="primary" (click)="adicionarCurso()">
 			<div style="text-align: center;">
 				<ion-buttons >
-					<button ion-button (click)="adicionarCurso()">Adicionar</button> 
+					<button ion-button>Adicionar</button> 
 				</ion-buttons>
 			</div>
 

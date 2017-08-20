@@ -20,7 +20,7 @@ export class CursosPage {
                       alunos:       new Array(),
                       aulas:        new Array()
 					};
-		this.cursos = [];
+		this.cursos = new Array<Curso>();
 		this.cursos.push(curso);
 	}
 	
@@ -36,20 +36,47 @@ export class CursosPage {
 	removerCurso(curso: Curso){
 		for(var i = this.cursos.length - 1; i >= 0; i--) { 
 		  
-		  if(this.cursos[i].nome == curso.nome){
+		  if(this.cursos[i].id == curso.id){
 			this.cursos.splice(i,1);
 		  }
 		}
 	}
 	
-	myCallbackFunction = (curso, estaAlterando) => {
+	myCallbackFunction = (curso, estaAlterando, cancelou) => {
 		return new Promise((resolve, reject) => {
-			let c : Curso = curso;
-			let e : boolean = estaAlterando;
 			
-			console.log(JSON.stringify(c));
-			console.log(e);
+			if(!cancelou){
+				if(estaAlterando){
+				  this.alterarCursoDaLista(curso);
+				} else {
+				  this.adicionarCursoNaLista(curso);
+				}
+			}
+			
 			resolve();
 		});
+	}
+	
+	adicionarCursoNaLista(curso: Curso){
+		let maxId: number =0;
+		
+		for(var i = 0; i < this.cursos.length; i++) { 
+
+			if(this.cursos[i].id > maxId){
+				maxId = this.cursos[i].id;
+			}
+		}
+		
+		curso.id = maxId+1;
+		this.cursos.push(curso);
+	}
+	
+	alterarCursoDaLista(curso: Curso){
+		for(var i = 0; i < this.cursos.length; i++) { 
+
+			if(this.cursos[i].id == curso.id){
+				this.cursos[i] = curso;
+			}
+		}
 	}
 }

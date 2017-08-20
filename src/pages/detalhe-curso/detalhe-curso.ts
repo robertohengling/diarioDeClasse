@@ -10,6 +10,7 @@ export class DetalheCursoPage {
 	
 	titulo :string;
 	estaAlterando     :boolean;
+	cancelou		  :boolean = false;
 	curso  :Curso;
 	
 	callback :any;
@@ -26,7 +27,7 @@ export class DetalheCursoPage {
 	}
 
 	ionViewWillLeave() {
-		this.callback(this.curso, this.estaAlterando).then(()=>{
+		this.callback(this.curso, this.estaAlterando, this.cancelou).then(()=>{
 			
 		});
 	}
@@ -45,5 +46,10 @@ export class DetalheCursoPage {
 			this.curso = new Curso();
 		}
 		this.callback = this.navParams.get("callback");
+	}
+	
+	cancelar(){
+		this.cancelou = true;
+		this.navCtrl.pop();
 	}
 }

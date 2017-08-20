@@ -8,13 +8,15 @@
 </ion-header>
 
 <ion-content>
+	<img src="{{professor.foto}}"  height="150 px" width="150 px">
+	<button ion-button (click)="buscarFoto()">Buscar Foto</button> 
 	<ion-item>
 		<ion-label floating>Nome</ion-label>
-		<ion-input [(ngModel)]="curso.nome"></ion-input>
+		<ion-input [(ngModel)]="professor.nome"></ion-input>
 	</ion-item>
 	<ion-item>
-		<ion-label floating>Descrição</ion-label>
-		<ion-input [(ngModel)]="curso.descricao"></ion-input>
+		<ion-label floating>E-mail</ion-label>
+		<ion-input [(ngModel)]="professor.email"></ion-input>
 	</ion-item>
 	<ion-footer>
 		<ion-toolbar color="danger" (click)="cancelar()">

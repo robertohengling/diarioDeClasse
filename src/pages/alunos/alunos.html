@@ -7,5 +7,28 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+	<ion-list>
+		<ion-item-sliding *ngFor="let aluno of alunos">
+			<ion-item (click)="onClick(aluno);">
+			  <ion-avatar item-start>
+				<img src="{{aluno.foto}}" item-start/>
+			  </ion-avatar>
+			  {{aluno.nome}}
+			</ion-item>
+			<ion-item-options side="left">
+				<button color="danger" ion-button (click)="removerAluno(aluno);">Remover</button>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+	<ion-footer>
+		<ion-toolbar color="primary" (click)="adicionarAluno()">
+			<div style="text-align: center;">
+				<ion-buttons >
+					<button ion-button>Adicionar</button> 
+				</ion-buttons>
+			</div>
+
+		</ion-toolbar>
+	</ion-footer>
 </ion-content>
