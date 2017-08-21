@@ -16,6 +16,7 @@
 		<ion-label floating>Descrição</ion-label>
 		<ion-input [(ngModel)]="curso.descricao"></ion-input>
 	</ion-item>
+  <button ion-button (click)="onClickAlunosDoCurso()">Alunos</button> 
 	<ion-footer>
 		<ion-toolbar color="danger" (click)="cancelar()">
 			<div style="text-align: center;">

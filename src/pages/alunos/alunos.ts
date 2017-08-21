@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { Aluno } from '../../dto/aluno';
 import { DetalheAlunoPage } from '../../pages/detalhe-aluno/detalhe-aluno';
@@ -11,17 +11,29 @@ import { DetalheAlunoPage } from '../../pages/detalhe-aluno/detalhe-aluno';
 export class AlunosPage {
 
 	alunos: Array<Aluno>;
-	
-	constructor(public navCtrl: NavController) {
+	callback :any;
+  estaBuscandoAluno: boolean = false;
+  
+	constructor(public navCtrl: NavController, 
+              public navParams: NavParams) {
 		
 		this.alunos = new Array<Aluno>();
-
+    
+    this.estaBuscandoAluno = this.navParams.get('estaBuscandoAluno');
+		this.callback = this.navParams.get("callback");
 	}
 	
 	onClick(a: Aluno){
 		
-		this.navCtrl.push(DetalheAlunoPage, {callback: this.myCallbackFunction,
-		                                     aluno: JSON.stringify(a)});
+    if(this.estaBuscandoAluno){
+      this.callback(a).then(()=>{
+        
+      });
+      this.navCtrl.pop();
+    } else {
+		  this.navCtrl.push(DetalheAlunoPage, {callback: this.myCallbackFunction,
+		                                       aluno: JSON.stringify(a)});
+    }
 	}
 	adicionarAluno(){
 		this.navCtrl.push(DetalheAlunoPage, {callback: this.myCallbackFunction} );

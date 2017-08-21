@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Curso } from '../../dto/curso';
+import { AlunosDoCursoPage } from '../../pages/alunos-do-curso/alunos-do-curso';
 
 @Component({
   selector: 'page-detalhe-curso',
@@ -51,5 +52,10 @@ export class DetalheCursoPage {
 	cancelar(){
 		this.cancelou = true;
 		this.navCtrl.pop();
+	}
+  
+  onClickAlunosDoCurso(){
+		
+		this.navCtrl.push(AlunosDoCursoPage, {curso: JSON.stringify(this.curso)});
 	}
 }
