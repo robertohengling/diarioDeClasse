@@ -1,0 +1,2 @@
+export const DREAMFACTORY_API_KEY: string = 'd1b247d3d97daaf76ba8dc50c73926c72785855f8f75671505c52c4be194b3f6';
+export const DREAMFACTORY_INSTANCE_URL: string = 'http://192.168.1.34';

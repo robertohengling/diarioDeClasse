@@ -4,6 +4,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Base64 } from '@ionic-native/base64';
 
+import { HttpModule } from '@angular/http';
+
 import { MyApp } from './app.component';
 import { CursosPage } from '../pages/cursos/cursos';
 import { ProfessoresPage } from '../pages/professores/professores';
@@ -13,6 +15,8 @@ import { DetalheCursoPage } from '../pages/detalhe-curso/detalhe-curso';
 import { DetalheAlunoPage } from '../pages/detalhe-aluno/detalhe-aluno';
 import { DetalheProfessorPage } from '../pages/detalhe-professor/detalhe-professor';
 import { AlunosDoCursoPage } from '../pages/alunos-do-curso/alunos-do-curso';
+
+import { BaseHttpService } from '../services/base-http';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,10 +30,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 	DetalheCursoPage,
 	DetalheAlunoPage,
 	DetalheProfessorPage,
-  AlunosDoCursoPage
+	AlunosDoCursoPage
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -41,13 +46,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 	DetalheCursoPage,
 	DetalheAlunoPage,
 	DetalheProfessorPage,
-  AlunosDoCursoPage
+	AlunosDoCursoPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
 	ImagePicker,
 	Base64,
+	BaseHttpService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

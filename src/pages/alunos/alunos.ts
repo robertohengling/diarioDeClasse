@@ -3,9 +3,11 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { Aluno } from '../../dto/aluno';
 import { DetalheAlunoPage } from '../../pages/detalhe-aluno/detalhe-aluno';
+import { AlunoService } from '../../services/aluno';
 
 @Component({
   selector: 'page-alunos',
+  providers: [AlunoService],
   templateUrl: 'alunos.html'
 })
 export class AlunosPage {
@@ -14,12 +16,13 @@ export class AlunosPage {
 	callback :any;
   estaBuscandoAluno: boolean = false;
   
-	constructor(public navCtrl: NavController, 
-              public navParams: NavParams) {
+	constructor(private alunoService: AlunoService,
+	            public navCtrl: NavController, 
+                public navParams: NavParams) {
 		
 		this.alunos = new Array<Aluno>();
-    
-    this.estaBuscandoAluno = this.navParams.get('estaBuscandoAluno');
+		this.getList();
+		this.estaBuscandoAluno = this.navParams.get('estaBuscandoAluno');
 		this.callback = this.navParams.get("callback");
 	}
 	
@@ -38,23 +41,16 @@ export class AlunosPage {
 	adicionarAluno(){
 		this.navCtrl.push(DetalheAlunoPage, {callback: this.myCallbackFunction} );
 	}
-	removerAluno(aluno: Aluno){
-		for(var i = this.alunos.length - 1; i >= 0; i--) { 
-		  
-		  if(this.alunos[i].id == aluno.id){
-			this.alunos.splice(i,1);
-		  }
-		}
-	}
-	
 	myCallbackFunction = (aluno, estaAlterando, cancelou) => {
 		return new Promise((resolve, reject) => {
 			
 			if(!cancelou){
 				if(estaAlterando){
 				  this.alterarAlunoDaLista(aluno);
+				  this.alterarAlunoEndpoint(aluno);
 				} else {
 				  this.adicionarAlunoNaLista(aluno);
+				  this.adicionarAlunoEndpoint(aluno);
 				}
 			}
 			
@@ -84,4 +80,39 @@ export class AlunosPage {
 			}
 		}
 	}
+	
+	getList() {
+        let self = this;
+        self.alunoService.query()
+            .subscribe((alunos: Aluno[]) => {
+                self.alunos = alunos
+            });
+    }
+	get() {
+        let self = this;
+        self.alunoService.get("-1")
+            .subscribe((aluno: Aluno) => {
+                self.alunos.push(aluno);
+            });
+    }
+	removerAluno(aluno: Aluno) {
+        var self = this;
+        this.alunoService.remove(String(aluno.id))
+            .subscribe(() => {
+                self.alunos = self.alunos.filter((item) => {
+                    return item.id != aluno.id
+                });
+            });
+    }
+	adicionarAlunoEndpoint(aluno: Aluno){	
+		this.alunoService.post(aluno)
+                .subscribe((response) => {
+                });
+	}
+	alterarAlunoEndpoint(aluno: Aluno){	
+		this.alunoService.patch(aluno)
+                .subscribe((response) => {
+                });
+	}
+	
 }
