@@ -20,7 +20,7 @@ export class DetalheCursoPage {
                 public navParams: NavParams ) {
 		
 		this.recebeParametros();
-
+    console.log(JSON.stringify(this.curso));
 	}
 	ionViewWillEnter() {
 
@@ -35,7 +35,6 @@ export class DetalheCursoPage {
 		let c : string = this.navParams.get('curso');
 		
 		if(c){
-			console.log(c);
 			this.curso = <Curso> JSON.parse(c);
 			this.titulo = this.curso.nome;
 			this.estaAlterando = true;

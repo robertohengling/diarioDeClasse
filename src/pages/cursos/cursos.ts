@@ -70,7 +70,6 @@ export class CursosPage {
 				this.cursos[i] = curso;
 			}
 		}
-		console.log(curso);
 		this.alterarCursoEndpoint(curso);
 	}
     storeToken(data) {
@@ -82,7 +81,6 @@ export class CursosPage {
 		queryHeaders.append('Content-Type', 'application/json');
 		let options = new RequestOptions({ headers: queryHeaders });
 		this.httpService.http.post(constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/user/session', {email: 'aplicativo@teste.com',password: 123456},options).subscribe((data) => {
-				console.log(data.json());
 				this.storeToken(data.json());
 				this.getList();
 			}, (error) => {

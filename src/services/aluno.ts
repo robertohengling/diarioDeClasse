@@ -74,7 +74,6 @@ export class AlunoService {
     	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);
     	
     	let options = new RequestOptions({ headers: queryHeaders });
-		console.log(Aluno.toJson(aluno,true));
 		
 		return this.httpService.http.patch(constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/aluno', Aluno.toJson(aluno,true),options)
 			.map((data) => {

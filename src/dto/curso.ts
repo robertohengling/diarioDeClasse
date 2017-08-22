@@ -12,20 +12,34 @@ export class Curso {
 
 	static fromJson (json:any) {
 		if (!json) return;
-
+    
+    let alunosAux : Array<Aluno> = json.aluno_by_rel_aluno_curso;
+    let alunos : Array<Aluno> = new Array<Aluno>();
+    
+    for(let a of alunosAux) {
+      alunos.push(Aluno.fromJson(a));
+    }
+    
+    let aulasAux : Array<Aula> = json.aula_by_id_curso;
+    let aulas  : Array<Aula> = new Array<Aula>();
+    
+    for(let au of aulasAux) {
+      aulas.push(Aula.fromJson(au));
+    }
+    
 		return new Curso (
 			parseInt(json.id),
 			json.nome,
 			json.descricao,
-			new Array<Aluno>(),
-			new Array<Aula>()
+			alunos, //Implementar método que trata array!!!!!!
+			aulas//JSON.parse(json.aula_by_id_curso)   //Implementar método que trata array!!!!!!
 		);
 	}
 
 
 	static toJson (curso: Curso, stringify?: boolean):any {
 		var doc = {
-			id: curso.id,
+			id: String(curso.id),
 			nome: curso.nome,
 			descricao: curso.descricao
 		};

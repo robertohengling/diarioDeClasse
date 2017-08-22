@@ -3,18 +3,22 @@ import { NavController } from 'ionic-angular';
 
 import { Professor } from '../../dto/professor';
 import { DetalheProfessorPage } from '../../pages/detalhe-professor/detalhe-professor';
+import { ProfessorService } from '../../services/professor';
 
 @Component({
   selector: 'page-professores',
+  providers: [ProfessorService],
   templateUrl: 'professores.html'
 })
 export class ProfessoresPage {
 
 	professores: Array<Professor>;
 	
-	constructor(public navCtrl: NavController) {
+	constructor(private professorService: ProfessorService,
+	            public navCtrl: NavController) {
 		
 		this.professores = new Array<Professor>();
+		this.getList();
 
 	}
 	
@@ -25,15 +29,7 @@ export class ProfessoresPage {
 	}
 	adicionarProfessor(){
 		this.navCtrl.push(DetalheProfessorPage, {callback: this.myCallbackFunction} );
-	}
-	removerProfessor(professor: Professor){
-		for(var i = this.professores.length - 1; i >= 0; i--) { 
-		  
-		  if(this.professores[i].id == professor.id){
-			this.professores.splice(i,1);
-		  }
-		}
-	}
+	} 
 	
 	myCallbackFunction = (professor, estaAlterando, cancelou) => {
 		return new Promise((resolve, reject) => {
@@ -41,8 +37,10 @@ export class ProfessoresPage {
 			if(!cancelou){
 				if(estaAlterando){
 				  this.alterarProfessorDaLista(professor);
+				  this.alterarProfessorEndpoint(professor);
 				} else {
 				  this.adicionarProfessorNaLista(professor);
+				  this.adicionarProfessorEndpoint(professor);
 				}
 			}
 			
@@ -72,4 +70,40 @@ export class ProfessoresPage {
 			}
 		}
 	}
+  
+  
+	getList() {
+        let self = this;
+        self.professorService.query()
+            .subscribe((professores: Professor[]) => {
+                self.professores = professores
+            });
+    }
+	get() {
+        let self = this;
+        self.professorService.get("-1")
+            .subscribe((professor: Professor) => {
+                self.professores.push(professor);
+            });
+    }
+	removerProfessor(professor: Professor) {
+        var self = this;
+        this.professorService.remove(String(professor.id))
+            .subscribe(() => {
+                self.professores = self.professores.filter((item) => {
+                    return item.id != professor.id
+                });
+            });
+    }
+	adicionarProfessorEndpoint(professor: Professor){	
+		this.professorService.post(professor)
+                .subscribe((response) => {
+                });
+	}
+	alterarProfessorEndpoint(professor: Professor){	
+		this.professorService.patch(professor)
+                .subscribe((response) => {
+                });
+	}
+	
 }

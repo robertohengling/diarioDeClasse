@@ -1,6 +1,6 @@
 import {Injectable} from'@angular/core';
 import {Headers, URLSearchParams,RequestOptions} from '@angular/http';
-import {Curso} from '../dto/curso';
+import {Aluno} from '../dto/aluno';
 import * as constants from '../config/constants';
 import {BaseHttpService} from './base-http';
 import 'rxjs/add/operator/map';
@@ -9,27 +9,27 @@ import {Observable} from 'rxjs/Observable';
 
 
 @Injectable()
-export class CursoService {
-	baseResourceUrl: string = constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/curso';
+export class AlunosDoCursoService {
+	baseResourceUrl: string = constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/rel_aluno_curso';
 	constructor(private httpService: BaseHttpService) {
 
 	};
 
 
-	query (params?:URLSearchParams): Observable<Curso[]> {
+	query (idCurso: number, params?:URLSearchParams): Observable<Aluno[]> {
 		var queryHeaders = new Headers();
     	queryHeaders.append('Content-Type', 'application/json');
     	queryHeaders.append('X-Dreamfactory-Session-Token', localStorage.getItem('session_token'));
     	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);    	
 		return this.httpService.http
-			.get(this.baseResourceUrl, { search: params, headers: queryHeaders})
+			.get(this.baseResourceUrl+'?filter=id_curso='+idCurso, { search: params, headers: queryHeaders})
 			.map((response) => {
 				var result: any = response.json();
-				let cursos: Array<Curso> = [];
-				result.resource.forEach((curso) => {
-					cursos.push(Curso.fromJson(curso));
+				let alunos: Array<Aluno> = [];
+				result.resource.forEach((relAlunoCurso) => {
+					alunos.push(Aluno.fromJson(relAlunoCurso.aluno_by_id_aluno));
 				});
-				return cursos;
+				return alunos;
 			}).catch(this.handleError);
 	};
 	private handleError (error: any) {
@@ -39,57 +39,29 @@ export class CursoService {
 	   localStorage.setItem('session_token', '');       
 	  return Observable.throw(errMsg);
 	}
-	
-	get (id: string, params?: URLSearchParams): Observable<Curso> {
-		var queryHeaders = new Headers();
-    	queryHeaders.append('Content-Type', 'application/json');
-    	queryHeaders.append('X-Dreamfactory-Session-Token', localStorage.getItem('session_token'));
-    	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);
-		return this.httpService.http
-			.get(this.baseResourceUrl + '/' + id, { search: params ,headers: queryHeaders})
-			.map((response) => {
-				var result: any = response.json();
-				let curso: Curso = Curso.fromJson(result);
-				return curso;
-			}).catch(this.handleError);
-	};
 
-	remove (id: string) {
+
+	remove (idCurso: number, idAluno: number) {
 		var queryHeaders = new Headers();
     	queryHeaders.append('Content-Type', 'application/json');
     	queryHeaders.append('X-Dreamfactory-Session-Token', localStorage.getItem('session_token'));
     	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);
 		return this.httpService.http
-			.delete(this.baseResourceUrl + '/' + id,{ headers: queryHeaders})
+			.delete(this.baseResourceUrl+'?filter=(id_curso='+idCurso + ')AND(id_aluno='+idAluno+')',{ headers: queryHeaders})
 			.map((response) => {
 				var result: any = response.json();
 				return result.id;
 			});
 	}
 
-	patch (curso: Curso) {
+	post(idCurso:number, idAluno: number){
 		var queryHeaders = new Headers();
     	queryHeaders.append('Content-Type', 'application/json');
     	queryHeaders.append('X-Dreamfactory-Session-Token', localStorage.getItem('session_token'));
     	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);
     	
     	let options = new RequestOptions({ headers: queryHeaders });
-		
-		return this.httpService.http.patch(constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/curso', Curso.toJson(curso,true),options)
-			.map((data) => {
-				return data;
-		});
-		
-	}
-	
-	post(curso: Curso){
-		var queryHeaders = new Headers();
-    	queryHeaders.append('Content-Type', 'application/json');
-    	queryHeaders.append('X-Dreamfactory-Session-Token', localStorage.getItem('session_token'));
-    	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);
-    	
-    	let options = new RequestOptions({ headers: queryHeaders });
-		return this.httpService.http.post(constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/curso', Curso.toJson(curso,true),options)
+		return this.httpService.http.post(this.baseResourceUrl, JSON.stringify({ resource: [{id_curso: idCurso, id_aluno: idAluno}] }),options)
 			.map((data) => {
 				return data;
 		});
