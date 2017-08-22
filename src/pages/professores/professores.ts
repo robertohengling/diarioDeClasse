@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { Professor } from '../../dto/professor';
 import { DetalheProfessorPage } from '../../pages/detalhe-professor/detalhe-professor';
@@ -13,19 +13,31 @@ import { ProfessorService } from '../../services/professor';
 export class ProfessoresPage {
 
 	professores: Array<Professor>;
+	callback :any;
+  estaBuscandoProfessor: boolean = false;
 	
 	constructor(private professorService: ProfessorService,
-	            public navCtrl: NavController) {
+	            public navCtrl: NavController, 
+              public navParams: NavParams) {
 		
 		this.professores = new Array<Professor>();
 		this.getList();
+		this.estaBuscandoProfessor = this.navParams.get('estaBuscandoProfessor');
+		this.callback = this.navParams.get("callback");
 
 	}
 	
 	onClick(a: Professor){
-		
-		this.navCtrl.push(DetalheProfessorPage, {callback: this.myCallbackFunction,
-		                                         professor: JSON.stringify(a)});
+		if(this.estaBuscandoProfessor){
+      this.callback(a).then(()=>{
+        
+      });
+      this.navCtrl.pop();
+    } else {
+		  this.navCtrl.push(DetalheProfessorPage, {callback: this.myCallbackFunction,
+		                                           professor: JSON.stringify(a)});
+    }
+
 	}
 	adicionarProfessor(){
 		this.navCtrl.push(DetalheProfessorPage, {callback: this.myCallbackFunction} );

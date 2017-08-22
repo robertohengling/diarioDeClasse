@@ -15,6 +15,8 @@ import { DetalheCursoPage } from '../pages/detalhe-curso/detalhe-curso';
 import { DetalheAlunoPage } from '../pages/detalhe-aluno/detalhe-aluno';
 import { DetalheProfessorPage } from '../pages/detalhe-professor/detalhe-professor';
 import { AlunosDoCursoPage } from '../pages/alunos-do-curso/alunos-do-curso';
+import { AulasDoCursoPage } from '../pages/aulas-do-curso/aulas-do-curso';
+import { DetalheAulaPage } from '../pages/detalhe-aula/detalhe-aula';
 
 import { BaseHttpService } from '../services/base-http';
 
@@ -30,7 +32,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 	DetalheCursoPage,
 	DetalheAlunoPage,
 	DetalheProfessorPage,
-	AlunosDoCursoPage
+	AlunosDoCursoPage,
+  AulasDoCursoPage,
+  DetalheAulaPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 	DetalheCursoPage,
 	DetalheAlunoPage,
 	DetalheProfessorPage,
-	AlunosDoCursoPage
+	AlunosDoCursoPage,
+  AulasDoCursoPage,
+  DetalheAulaPage
   ],
   providers: [
     StatusBar,

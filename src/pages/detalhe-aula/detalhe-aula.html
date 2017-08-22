@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{titulo}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>Data</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="DD/MM/YYYY HH:mm" [(ngModel)]="aula.dataHora"></ion-datetime>
+  </ion-item>
+  Professor
+  <ion-item (click)="onClickProfessor();">
+    <ion-avatar item-start>
+      <img src="{{aula.professor.foto}}" item-start/>
+    </ion-avatar>
+    {{aula.professor.nome}}
+  </ion-item>
+  Professor Back-up
+  <ion-item (click)="onClickProfessorBackup();">
+    <ion-avatar item-start>
+      <img src="{{aula.professorBackup.foto}}" item-start/>
+    </ion-avatar>
+    {{aula.professorBackup.nome}}
+  </ion-item>
+	<ion-footer>
+		<ion-toolbar color="danger" (click)="cancelar()">
+			<div style="text-align: center;">
+				<ion-buttons >
+					<button ion-button >Cancelar</button> 
+				</ion-buttons>
+			</div>
+
+		</ion-toolbar>
+	</ion-footer>
+</ion-content>

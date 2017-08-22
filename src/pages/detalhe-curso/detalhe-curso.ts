@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Curso } from '../../dto/curso';
 import { AlunosDoCursoPage } from '../../pages/alunos-do-curso/alunos-do-curso';
+import { AulasDoCursoPage } from '../../pages/aulas-do-curso/aulas-do-curso';
 
 @Component({
   selector: 'page-detalhe-curso',
@@ -52,8 +53,12 @@ export class DetalheCursoPage {
 		this.navCtrl.pop();
 	}
   
-    onClickAlunosDoCurso(){
+  onClickAlunosDoCurso(){
 		
 		this.navCtrl.push(AlunosDoCursoPage, {curso: JSON.stringify(this.curso)});
+	}
+  onClickAulasDoCurso(){
+		
+		this.navCtrl.push(AulasDoCursoPage, {curso: JSON.stringify(this.curso)});
 	}
 }

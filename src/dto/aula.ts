@@ -4,8 +4,8 @@ import {Anotacao} from './anotacao';
 export class Aula {
   constructor (
       public id: number = null,
-			public professor:Professor = null,
-			public professorBackup:Professor = null,
+			public professor:Professor = new Professor(),
+			public professorBackup:Professor = new Professor(),
 			public dataHora:Date = new Date(),
 			public listaPresenca:Array<PresencaAluno> = new Array<PresencaAluno>(),
 			public listaAnotacoes: Array<Anotacao> = new Array<Anotacao>()
