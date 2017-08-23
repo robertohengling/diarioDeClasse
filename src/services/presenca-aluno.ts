@@ -1,6 +1,6 @@
 import {Injectable} from'@angular/core';
 import {Headers, URLSearchParams,RequestOptions} from '@angular/http';
-import {Aula} from '../dto/aula';
+import {PresencaAluno} from '../dto/presenca-aluno';
 import * as constants from '../config/constants';
 import {BaseHttpService} from './base-http';
 import 'rxjs/add/operator/map';
@@ -9,27 +9,27 @@ import {Observable} from 'rxjs/Observable';
 
 
 @Injectable()
-export class AulaService {
-	baseResourceUrl: string = constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/aula';
+export class PresencaAlunoService {
+	baseResourceUrl: string = constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/presenca_aluno';
 	constructor(private httpService: BaseHttpService) {
 
 	};
 
 
-	query (idCurso: number, params?:URLSearchParams): Observable<Aula[]> {
+	query (idAula: number, params?:URLSearchParams): Observable<PresencaAluno[]> {
 		var queryHeaders = new Headers();
     	queryHeaders.append('Content-Type', 'application/json');
     	queryHeaders.append('X-Dreamfactory-Session-Token', localStorage.getItem('session_token'));
     	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);    	
 		return this.httpService.http
-			.get(this.baseResourceUrl+'?filter=id_curso='+idCurso, { search: params, headers: queryHeaders})
+			.get(this.baseResourceUrl+'?filter=id_aula='+idAula, { search: params, headers: queryHeaders})
 			.map((response) => {
 				var result: any = response.json();
-				let aulas: Array<Aula> = [];
-				result.resource.forEach((aula) => {
-					aulas.push(Aula.fromJson(aula));
+				let presencasAlunos: Array<PresencaAluno> = [];
+				result.resource.forEach((presencaAluno) => {
+					presencasAlunos.push(PresencaAluno.fromJson(presencaAluno));
 				});
-				return aulas;
+				return presencasAlunos;
 			}).catch(this.handleError);
 	};
 	private handleError (error: any) {
@@ -39,7 +39,7 @@ export class AulaService {
 	   localStorage.setItem('session_token', '');       
 	  return Observable.throw(errMsg);
 	}
-	
+
 
 	remove (id: string) {
 		var queryHeaders = new Headers();
@@ -53,8 +53,7 @@ export class AulaService {
 				return result.id;
 			});
 	}
-
-	patch (idCurso: number, aula: Aula) {
+  patch (idAula: number, presencaAluno: PresencaAluno) {
 		var queryHeaders = new Headers();
     	queryHeaders.append('Content-Type', 'application/json');
     	queryHeaders.append('X-Dreamfactory-Session-Token', localStorage.getItem('session_token'));
@@ -62,23 +61,21 @@ export class AulaService {
     	
     	let options = new RequestOptions({ headers: queryHeaders });
 		
-		return this.httpService.http.patch(constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/aula', Aula.toJson(aula,idCurso,true),options)
+		return this.httpService.http.patch(this.baseResourceUrl, PresencaAluno.toJson(presencaAluno,idAula,true),options)
 			.map((data) => {
 				return data;
 		});
 		
 	}
-	
-	post(idCurso: number, aula: Aula){
+	post(idAula: number, presencaAluno: PresencaAluno){
 		var queryHeaders = new Headers();
     	queryHeaders.append('Content-Type', 'application/json');
     	queryHeaders.append('X-Dreamfactory-Session-Token', localStorage.getItem('session_token'));
     	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);
     	
     	let options = new RequestOptions({ headers: queryHeaders });
-		return this.httpService.http.post(constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/aula', Aula.toJson(aula,idCurso,true),options)
+		return this.httpService.http.post(this.baseResourceUrl, PresencaAluno.toJson(presencaAluno,idAula,true),options)
 			.map((data) => {
-				console.log('Passou aqui');
 				return data;
 		});
 	}

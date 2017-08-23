@@ -1,5 +1,5 @@
 import {Professor} from './professor';
-import {PresencaAluno} from './presenca_aluno';
+import {PresencaAluno} from './presenca-aluno';
 import {Anotacao} from './anotacao';
 export class Aula {
   constructor (

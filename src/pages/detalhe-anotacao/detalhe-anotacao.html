@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{titulo}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+		<ion-label floating>Assunto</ion-label>
+		<ion-input [(ngModel)]="anotacao.assunto"></ion-input>
+	</ion-item>
+  <ion-item>
+		<ion-label floating>Texto</ion-label>
+		<ion-input [(ngModel)]="anotacao.texto"></ion-input>
+	</ion-item>
+  
+  Professor
+  <ion-item (click)="onClickProfessor();">
+    <ion-avatar item-start>
+      <img src="{{anotacao.professor.foto}}" item-start/>
+    </ion-avatar>
+    {{anotacao.professor.nome}}
+  </ion-item>
+  Aluno
+  <ion-item (click)="onClickAluno();">
+    <ion-avatar item-start>
+      <img src="{{anotacao.aluno.foto}}" item-start/>
+    </ion-avatar>
+    {{anotacao.aluno.nome}}
+  </ion-item>
+  <ion-item *ngIf="!anotacao.aluno.nome">
+    <ion-label>Desempenho Turma - {{anotacao.desempenhoTurma}}</ion-label>
+    <ion-range min="0" max="10" [(ngModel)]="anotacao.desempenhoTurma" color="secondary">
+      <ion-label range-left>0</ion-label>
+      <ion-label range-right>10</ion-label>
+    </ion-range>
+  </ion-item>
+  <ion-item *ngIf="anotacao.aluno.nome">
+    <ion-label>Desempenho Aluno - {{anotacao.desempenhoAluno}}</ion-label>
+    <ion-range min="0" max="10" [(ngModel)]="anotacao.desempenhoAluno" color="secondary">
+      <ion-label range-left>0</ion-label>
+      <ion-label range-right>10</ion-label>
+    </ion-range>
+  </ion-item>
+	<ion-footer>
+		<ion-toolbar color="danger" (click)="cancelar()">
+			<div style="text-align: center;">
+				<ion-buttons >
+					<button ion-button >Cancelar</button> 
+				</ion-buttons>
+			</div>
+
+		</ion-toolbar>
+		<ion-toolbar (click)="salvar()">
+			<div style="text-align: center;">
+				<ion-buttons >
+					<button ion-button >Salvar</button> 
+				</ion-buttons>
+			</div>
+		</ion-toolbar>
+	</ion-footer>
+</ion-content>

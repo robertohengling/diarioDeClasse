@@ -2,7 +2,7 @@ import {Aluno} from './aluno';
 export class PresencaAluno {
   constructor (
       public id: number = null,
-			public aluno:Aluno = null,
+			public aluno:Aluno = new Aluno(),
 			public indPresente:string = 'S'
 	) { }
 

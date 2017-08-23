@@ -6,12 +6,14 @@ import {BaseHttpService} from './base-http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {Observable} from 'rxjs/Observable';
+import {PresencaAlunoService} from './presenca-aluno';
 
 
 @Injectable()
 export class AlunosDoCursoService {
 	baseResourceUrl: string = constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/rel_aluno_curso';
-	constructor(private httpService: BaseHttpService) {
+	constructor(private httpService: BaseHttpService,
+              private presencaAlunoService : PresencaAlunoService) {
 
 	};
 
@@ -42,7 +44,8 @@ export class AlunosDoCursoService {
 
 
 	remove (idCurso: number, idAluno: number) {
-		var queryHeaders = new Headers();
+		
+    var queryHeaders = new Headers();
     	queryHeaders.append('Content-Type', 'application/json');
     	queryHeaders.append('X-Dreamfactory-Session-Token', localStorage.getItem('session_token'));
     	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);

@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Anotações</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-list>
+		<ion-item-sliding *ngFor="let anotacao of anotacoes">
+			<ion-item (click)="onClick(anotacao);">
+				{{anotacao.assunto}}
+        {{anotacao.professor.nome}}
+			</ion-item>
+			<ion-item-options side="left">
+				<button color="danger" ion-button (click)="removerAnotacao(anotacao);">Remover</button>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+	<ion-footer>
+		<ion-toolbar color="primary" (click)="adicionarAnotacao()">
+			<div style="text-align: center;">
+				<ion-buttons >
+					<button ion-button>Adicionar</button> 
+				</ion-buttons>
+			</div>
+
+		</ion-toolbar>
+	</ion-footer>
+</ion-content>

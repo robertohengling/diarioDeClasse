@@ -3,10 +3,10 @@ import {Professor} from './professor';
 export class Anotacao {
   constructor (
       public id: number = null,
-			public assunto:string = 'S',
-			public texto:string = 'S',
-			public professor:Professor = null,
-			public aluno:Aluno = null,
+			public assunto:string = '',
+			public texto:string = '',
+			public professor:Professor = new Professor(),
+			public aluno:Aluno = new Aluno(),
 			public desempenhoTurma:number = null,
 			public desempenhoAluno:number = null
 	) { }

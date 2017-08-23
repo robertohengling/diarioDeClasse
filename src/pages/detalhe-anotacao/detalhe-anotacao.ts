@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Aula } from '../../dto/aula';
+import { Anotacao } from '../../dto/anotacao';
 import { ProfessoresPage } from '../../pages/professores/professores';
-import { AnotacoesDaAulaPage } from '../../pages/anotacoes-da-aula/anotacoes-da-aula';
+import { AlunosPage } from '../../pages/alunos/alunos';
 
 @Component({
-  selector: 'page-detalhe-aula',
-  templateUrl: 'detalhe-aula.html'
+  selector: 'page-detalhe-anotacao',
+  templateUrl: 'detalhe-anotacao.html'
 })
-export class DetalheAulaPage {
+export class DetalheAnotacaoPage {
 	
 	titulo :string;
 	estaAlterando     :boolean;
 	cancelou		  :boolean = false;
-	aula  :Aula;
+	anotacao  :Anotacao;
 	
 	callback :any;
 	 
@@ -26,39 +26,39 @@ export class DetalheAulaPage {
   myCallbackFunctionProfessor = (professor) => {
 		return new Promise((resolve, reject) => {
 			
-			this.aula.professor = professor;
+			this.anotacao.professor = professor;
 		});
 	}
-  myCallbackFunctionProfessorBackup = (professor) => {
+  
+  myCallbackFunctionAluno = (aluno) => {
 		return new Promise((resolve, reject) => {
 			
-			this.aula.professorBackup = professor;
+			this.anotacao.aluno = aluno;
 		});
 	}
-		
 	cancelar(){
 		this.cancelou = true;
-		this.callback(this.aula, this.estaAlterando, this.cancelou).execute;
+		this.callback(this.anotacao, this.estaAlterando, this.cancelou).execute;
 		this.navCtrl.pop();
 	}
 	salvar(){
 		this.cancelou = false;
-		this.callback(this.aula, this.estaAlterando, this.cancelou).execute;
+		this.callback(this.anotacao, this.estaAlterando, this.cancelou).execute;
 		this.navCtrl.pop();
 		
 	}
 	recebeParametros(){
-		let c : string = this.navParams.get('aula');
+		let c : string = this.navParams.get('anotacao');
 		
 		if(c){
-			this.aula = <Aula> JSON.parse(c);
-			this.titulo = this.aula.dataHora.toLocaleString();
+			this.anotacao = <Anotacao> JSON.parse(c);
+			this.titulo = this.anotacao.assunto;
 			this.estaAlterando = true;
 		  
 		} else {
-			this.titulo =  'Novo aula...'
+			this.titulo =  'Nova anotacao...'
 			this.estaAlterando = false;
-			this.aula = new Aula();
+			this.anotacao = new Anotacao();
 		}
 		this.callback = this.navParams.get("callback");
 	}
@@ -67,14 +67,8 @@ export class DetalheAulaPage {
       this.navCtrl.push(ProfessoresPage, {callback: this.myCallbackFunctionProfessor,
                                           estaBuscandoProfessor: true} );
   }
-  
-  onClickProfessorBackup(){
-      this.navCtrl.push(ProfessoresPage, {callback: this.myCallbackFunctionProfessorBackup,
-                                          estaBuscandoProfessor: true} );
+  onClickAluno(){
+      this.navCtrl.push(AlunosPage, {callback: this.myCallbackFunctionAluno,
+                                          estaBuscandoAluno: true} );
   }
-  
-  onClickAnotacoesDaAula(){
-		
-		this.navCtrl.push(AnotacoesDaAulaPage, {aula: JSON.stringify(this.aula)});
-	}
 }
