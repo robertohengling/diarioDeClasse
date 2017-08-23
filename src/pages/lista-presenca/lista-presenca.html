@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{titulo}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let presencaAluno of presencasAlunos">
+      <ion-avatar item-start>
+        <img src="{{presencaAluno.aluno.foto}}" item-start/>
+      </ion-avatar>
+      <ion-label>{{presencaAluno.aluno.nome}}</ion-label>
+      <ion-toggle [(ngModel)]="presencaAluno.indPresente"></ion-toggle>
+      
+    </ion-item>
+  </ion-list>
+	<ion-footer>
+		<ion-toolbar color="danger" (click)="cancelar()">
+			<div style="text-align: center;">
+				<ion-buttons >
+					<button ion-button >Cancelar</button> 
+				</ion-buttons>
+			</div>
+
+		</ion-toolbar>
+		<ion-toolbar (click)="salvar()">
+			<div style="text-align: center;">
+				<ion-buttons >
+					<button ion-button >Salvar</button> 
+				</ion-buttons>
+			</div>
+		</ion-toolbar>
+	</ion-footer>
+</ion-content>

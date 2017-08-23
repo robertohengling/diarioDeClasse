@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Aula } from '../../dto/aula';
 import { ProfessoresPage } from '../../pages/professores/professores';
 import { AnotacoesDaAulaPage } from '../../pages/anotacoes-da-aula/anotacoes-da-aula';
+import { ListaPresencaPage } from '../../pages/lista-presenca/lista-presenca';
 
 @Component({
   selector: 'page-detalhe-aula',
@@ -76,5 +77,10 @@ export class DetalheAulaPage {
   onClickAnotacoesDaAula(){
 		
 		this.navCtrl.push(AnotacoesDaAulaPage, {aula: JSON.stringify(this.aula)});
+	}  
+  
+  onClickPresencaDaAula(){
+		
+		this.navCtrl.push(ListaPresencaPage, {aula: JSON.stringify(this.aula)});
 	}
 }

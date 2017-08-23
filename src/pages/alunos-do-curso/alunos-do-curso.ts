@@ -5,10 +5,11 @@ import { Curso } from '../../dto/curso';
 import { Aluno } from '../../dto/aluno';
 import { AlunosPage } from '../../pages/alunos/alunos';
 import { AlunosDoCursoService } from '../../services/alunos-do-curso';
+import { PresencaAlunoService } from '../../services/presenca-aluno';
 
 @Component({
   selector: 'page-alunos-do-curso',
-  providers: [AlunosDoCursoService],
+  providers: [AlunosDoCursoService, PresencaAlunoService],
   templateUrl: 'alunos-do-curso.html'
 })
 export class AlunosDoCursoPage {
@@ -16,6 +17,7 @@ export class AlunosDoCursoPage {
   curso: Curso;
 	
 	constructor(private alunosDoCursoService: AlunosDoCursoService,
+	            private presencaAlunoService: PresencaAlunoService,
 	            public navCtrl: NavController, 
               public navParams: NavParams) {
   
@@ -61,6 +63,7 @@ export class AlunosDoCursoPage {
 	adicionarAlunoEndpoint(aluno: Aluno){	
 		this.alunosDoCursoService.post(this.curso.id, aluno.id)
                 .subscribe((response) => {
+                  this.presencaAlunoService.postByAluno(this.curso.id, aluno);
                 });
 	}
 }

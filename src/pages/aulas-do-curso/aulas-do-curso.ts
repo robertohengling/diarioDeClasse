@@ -8,10 +8,11 @@ import { Curso } from '../../dto/curso';
 import { DetalheAulaPage } from '../../pages/detalhe-aula/detalhe-aula';
 import * as constants from '../../config/constants';
 import { AulaService } from '../../services/aula';
+import { PresencaAlunoService } from '../../services/presenca-aluno';
 
 @Component({
   selector: 'page-aulas-do-curso',
-  providers: [AulaService, BaseHttpService],
+  providers: [AulaService, BaseHttpService, PresencaAlunoService],
   templateUrl: 'aulas-do-curso.html'
 })
 export class AulasDoCursoPage {
@@ -20,6 +21,7 @@ export class AulasDoCursoPage {
   
 	aulas: Array<Aula>;
 	constructor(private aulaService: AulaService,
+              private presencaAlunoService: PresencaAlunoService,
               private httpService: BaseHttpService, 
               public navCtrl: NavController,
               public navParams: NavParams) {
@@ -93,18 +95,19 @@ export class AulasDoCursoPage {
     
 	removerAula(aula: Aula) {
         var self = this;
-        this.aulaService.remove(String(aula.id))
-            .subscribe(() => {
-                self.aulas = self.aulas.filter((item) => {
-                    return item.id != aula.id
-                });
-            });
+        this.aulaService.remove(String(aula.id)).subscribe((response) => {
+                });;
+        self.aulas = self.aulas.filter((item) => {
+            return item.id != aula.id
+        });
     }
     
 	adicionarAulaEndpoint(aula: Aula){	
 		this.aulaService.post(this.curso.id, aula)
                 .subscribe((response) => {
+                this.presencaAlunoService.postByAula(this.curso.id, aula.id);
                 });
+                
 	}
 	alterarAulaEndpoint(aula: Aula){	
 		this.aulaService.patch(this.curso.id, aula)

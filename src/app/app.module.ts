@@ -19,9 +19,12 @@ import { AulasDoCursoPage } from '../pages/aulas-do-curso/aulas-do-curso';
 import { DetalheAulaPage } from '../pages/detalhe-aula/detalhe-aula';
 import { AnotacoesDaAulaPage } from '../pages/anotacoes-da-aula/anotacoes-da-aula';
 import { DetalheAnotacaoPage } from '../pages/detalhe-anotacao/detalhe-anotacao';
+import { ListaPresencaPage } from '../pages/lista-presenca/lista-presenca';
 
 import { BaseHttpService } from '../services/base-http';
+import {AlunosDoCursoService} from '../services/alunos-do-curso';
 import {PresencaAlunoService} from '../services/presenca-aluno';
+import {AulaService} from '../services/aula';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -39,7 +42,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   AulasDoCursoPage,
   DetalheAulaPage,
   AnotacoesDaAulaPage,
-  DetalheAnotacaoPage
+  DetalheAnotacaoPage,
+  ListaPresencaPage
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   AulasDoCursoPage,
   DetalheAulaPage,
   AnotacoesDaAulaPage,
-  DetalheAnotacaoPage
+  DetalheAnotacaoPage,
+  ListaPresencaPage
   ],
   providers: [
     StatusBar,
@@ -67,7 +72,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 	ImagePicker,
 	Base64,
 	BaseHttpService,
+  AlunosDoCursoService,
   PresencaAlunoService,
+  AulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

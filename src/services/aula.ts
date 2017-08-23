@@ -46,12 +46,24 @@ export class AulaService {
     	queryHeaders.append('Content-Type', 'application/json');
     	queryHeaders.append('X-Dreamfactory-Session-Token', localStorage.getItem('session_token'));
     	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);
-		return this.httpService.http
-			.delete(this.baseResourceUrl + '/' + id,{ headers: queryHeaders})
-			.map((response) => {
-				var result: any = response.json();
-				return result.id;
-			});
+   
+      return this.httpService.http
+        .delete(constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/presenca_aluno?filter=id_aula='+id,{ headers: queryHeaders})
+        .map((response) => {
+        
+          this.httpService.http
+          .delete(this.baseResourceUrl + '/' + id,{ headers: queryHeaders})
+          .map((response) => {
+            
+            var result: any = response.json();
+            return result.id;
+          }).subscribe((response) => {
+          });;
+          
+          var result: any = response.json();
+          return result.id;
+          
+        });
 	}
 
 	patch (idCurso: number, aula: Aula) {

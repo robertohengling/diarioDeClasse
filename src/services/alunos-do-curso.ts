@@ -6,14 +6,12 @@ import {BaseHttpService} from './base-http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {Observable} from 'rxjs/Observable';
-import {PresencaAlunoService} from './presenca-aluno';
 
 
 @Injectable()
 export class AlunosDoCursoService {
 	baseResourceUrl: string = constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/rel_aluno_curso';
-	constructor(private httpService: BaseHttpService,
-              private presencaAlunoService : PresencaAlunoService) {
+	constructor(private httpService: BaseHttpService) {
 
 	};
 
@@ -49,7 +47,8 @@ export class AlunosDoCursoService {
     	queryHeaders.append('Content-Type', 'application/json');
     	queryHeaders.append('X-Dreamfactory-Session-Token', localStorage.getItem('session_token'));
     	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);
-		return this.httpService.http
+		
+    return this.httpService.http
 			.delete(this.baseResourceUrl+'?filter=(id_curso='+idCurso + ')AND(id_aluno='+idAluno+')',{ headers: queryHeaders})
 			.map((response) => {
 				var result: any = response.json();
@@ -66,6 +65,7 @@ export class AlunosDoCursoService {
     	let options = new RequestOptions({ headers: queryHeaders });
 		return this.httpService.http.post(this.baseResourceUrl, JSON.stringify({ resource: [{id_curso: idCurso, id_aluno: idAluno}] }),options)
 			.map((data) => {
+        
 				return data;
 		});
 	}

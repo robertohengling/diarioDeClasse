@@ -1,8 +1,12 @@
 import {Injectable} from'@angular/core';
 import {Headers, URLSearchParams,RequestOptions} from '@angular/http';
 import {PresencaAluno} from '../dto/presenca-aluno';
+import {Aluno} from '../dto/aluno';
+import {Aula} from '../dto/aula';
 import * as constants from '../config/constants';
 import {BaseHttpService} from './base-http';
+import {AlunosDoCursoService} from './alunos-do-curso';
+import {AulaService} from './aula';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {Observable} from 'rxjs/Observable';
@@ -11,7 +15,9 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class PresencaAlunoService {
 	baseResourceUrl: string = constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/presenca_aluno';
-	constructor(private httpService: BaseHttpService) {
+	constructor(private httpService: BaseHttpService,
+              private alunosDoCursoService: AlunosDoCursoService,
+              private aulaService: AulaService)  {
 
 	};
 
@@ -53,6 +59,7 @@ export class PresencaAlunoService {
 				return result.id;
 			});
 	}
+  
   patch (idAula: number, presencaAluno: PresencaAluno) {
 		var queryHeaders = new Headers();
     	queryHeaders.append('Content-Type', 'application/json');
@@ -74,9 +81,33 @@ export class PresencaAlunoService {
     	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);
     	
     	let options = new RequestOptions({ headers: queryHeaders });
-		return this.httpService.http.post(this.baseResourceUrl, PresencaAluno.toJson(presencaAluno,idAula,true),options)
-			.map((data) => {
-				return data;
+      return this.httpService.http.post(this.baseResourceUrl, PresencaAluno.toJson(presencaAluno,idAula,true),options)
+        .map((data) => {
+          return data;
 		});
 	}
+  
+  postByAula(idCurso: number, idAula: number){
+    this.alunosDoCursoService.query(idCurso)
+    .subscribe((alunos: Aluno[]) => {
+        for(let aluno of alunos){
+          let presencaAluno = new PresencaAluno(parseInt(String(idAula)+String(aluno.id)),aluno,false);
+          this.post(idAula, presencaAluno)
+            .subscribe((response) => {
+          });
+        }
+    });
+  }
+  
+  postByAluno(idCurso: number, aluno: Aluno){
+    this.aulaService.query(idCurso)
+    .subscribe((aulas: Aula[]) => {
+        for(let aula of aulas){
+          let presencaAluno = new PresencaAluno(parseInt(String(aula.id)+String(aluno.id)),aluno,false);
+          this.post(aula.id, presencaAluno)
+            .subscribe((response) => {
+          });
+        }
+    });
+  }
 }
