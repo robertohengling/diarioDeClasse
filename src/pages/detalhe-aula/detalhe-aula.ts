@@ -26,25 +26,26 @@ export class DetalheAulaPage {
 		return new Promise((resolve, reject) => {
 			
 			this.aula.professor = professor;
-			resolve();
 		});
 	}
   myCallbackFunctionProfessorBackup = (professor) => {
 		return new Promise((resolve, reject) => {
 			
 			this.aula.professorBackup = professor;
-			resolve();
 		});
 	}
-	ionViewWillEnter() {
-
-
-	}
-
-	ionViewWillLeave() {
+		
+	cancelar(){
+		this.cancelou = true;
 		this.callback(this.aula, this.estaAlterando, this.cancelou).execute;
+		this.navCtrl.pop();
 	}
-	
+	salvar(){
+		this.cancelou = false;
+		this.callback(this.aula, this.estaAlterando, this.cancelou).execute;
+		this.navCtrl.pop();
+		
+	}
 	recebeParametros(){
 		let c : string = this.navParams.get('aula');
 		
@@ -61,11 +62,6 @@ export class DetalheAulaPage {
 		this.callback = this.navParams.get("callback");
 	}
 	
-	cancelar(){
-		this.cancelou = true;
-		this.navCtrl.pop();
-	}
-  
   onClickProfessor(){
       this.navCtrl.push(ProfessoresPage, {callback: this.myCallbackFunctionProfessor,
                                           estaBuscandoProfessor: true} );

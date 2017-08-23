@@ -25,16 +25,6 @@ export class DetalheProfessorPage {
 		this.recebeParametros();
 
 	}
-	ionViewWillEnter() {
-
-
-	}
-
-	ionViewWillLeave() {
-		this.callback(this.professor, this.estaAlterando, this.cancelou).then(()=>{
-			
-		});
-	}
 	
 	recebeParametros(){
 		let c : string = this.navParams.get('professor');
@@ -54,9 +44,15 @@ export class DetalheProfessorPage {
 	
 	cancelar(){
 		this.cancelou = true;
+		this.callback(this.professor, this.estaAlterando, this.cancelou).execute;
 		this.navCtrl.pop();
 	}
-	
+	salvar(){
+		this.cancelou = false;
+		this.callback(this.professor, this.estaAlterando, this.cancelou).execute;
+		this.navCtrl.pop();
+		
+	}
 	buscarFoto(){
 		this.imagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
 			for (var i = 0; i < results.length; i++) {

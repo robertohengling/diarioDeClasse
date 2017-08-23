@@ -78,6 +78,7 @@ export class AulaService {
     	let options = new RequestOptions({ headers: queryHeaders });
 		return this.httpService.http.post(constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/aula', Aula.toJson(aula,idCurso,true),options)
 			.map((data) => {
+				console.log('Passou aqui');
 				return data;
 		});
 	}

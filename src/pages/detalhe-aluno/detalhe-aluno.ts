@@ -31,9 +31,7 @@ export class DetalheAlunoPage {
 	}
 
 	ionViewWillLeave() {
-		this.callback(this.aluno, this.estaAlterando, this.cancelou).then(()=>{
-			
-		});
+		
 	}
 	
 	recebeParametros(){
@@ -51,12 +49,18 @@ export class DetalheAlunoPage {
 		}
 		this.callback = this.navParams.get("callback");
 	}
-	
+		
 	cancelar(){
 		this.cancelou = true;
+		this.callback(this.aluno, this.estaAlterando, this.cancelou).execute;
 		this.navCtrl.pop();
 	}
-	
+	salvar(){
+		this.cancelou = false;
+		this.callback(this.aluno, this.estaAlterando, this.cancelou).execute;
+		this.navCtrl.pop();
+		
+	}
 	buscarFoto(){
 		this.imagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
 			for (var i = 0; i < results.length; i++) {

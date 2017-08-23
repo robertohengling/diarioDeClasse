@@ -23,15 +23,6 @@ export class DetalheCursoPage {
 		this.recebeParametros();
     console.log(JSON.stringify(this.curso));
 	}
-	ionViewWillEnter() {
-
-
-	}
-
-	ionViewWillLeave() {
-		this.callback(this.curso, this.estaAlterando, this.cancelou).execute;
-	}
-	
 	recebeParametros(){
 		let c : string = this.navParams.get('curso');
 		
@@ -50,9 +41,15 @@ export class DetalheCursoPage {
 	
 	cancelar(){
 		this.cancelou = true;
+		this.callback(this.curso, this.estaAlterando, this.cancelou).execute;
 		this.navCtrl.pop();
 	}
-  
+	salvar(){
+		this.cancelou = false;
+		this.callback(this.curso, this.estaAlterando, this.cancelou).execute;
+		this.navCtrl.pop();
+		
+	}
   onClickAlunosDoCurso(){
 		
 		this.navCtrl.push(AlunosDoCursoPage, {curso: JSON.stringify(this.curso)});
@@ -61,4 +58,6 @@ export class DetalheCursoPage {
 		
 		this.navCtrl.push(AulasDoCursoPage, {curso: JSON.stringify(this.curso)});
 	}
+	
+	
 }
