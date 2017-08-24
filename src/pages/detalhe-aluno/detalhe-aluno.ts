@@ -66,13 +66,20 @@ export class DetalheAlunoPage {
 		
 	}
 	buscarFoto(){
-		this.imagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
-			for (var i = 0; i < results.length; i++) {
-				//Transformar em Base64
-				this.aluno.foto = results[i];
-				
-				
-			}
-		}, (err) => { });
+	     let options = {
+			maximumImagesCount: 1,
+			width: 300,
+			height: 300,
+			quality : 75
+		  };
+		this.imagePicker.getPictures(options).then((results) => {
+			this.base64.encodeFile(results[0]).then((base64File: string) => {
+			  console.log(base64File);
+			  
+				this.aluno.foto = base64File;
+			}, (err) => {
+			  console.log(err);
+			});
+		}, (err) => { console.log(err);});
 	}
 }
