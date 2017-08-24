@@ -20,14 +20,14 @@
   Professor
   <ion-item (click)="onClickProfessor();">
     <ion-avatar item-start>
-      <img src="{{anotacao.professor.foto}}" item-start/>
+      <img [src]="sanitize(anotacao.professor.foto)" item-start/>
     </ion-avatar>
     {{anotacao.professor.nome}}
   </ion-item>
   Aluno
   <ion-item (click)="onClickAluno();">
     <ion-avatar item-start>
-      <img src="{{anotacao.aluno.foto}}" item-start/>
+      <img [src]="sanitize(anotacao.aluno.foto)" item-start/>
     </ion-avatar>
     {{anotacao.aluno.nome}}
   </ion-item>

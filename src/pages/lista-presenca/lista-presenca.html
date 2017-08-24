@@ -11,7 +11,7 @@
   <ion-list>
     <ion-item *ngFor="let presencaAluno of presencasAlunos">
       <ion-avatar item-start>
-        <img src="{{presencaAluno.aluno.foto}}" item-start/>
+        <img [src]="sanitize(presencaAluno.aluno.foto)" item-start/>
       </ion-avatar>
       <ion-label>{{presencaAluno.aluno.nome}}</ion-label>
       <ion-toggle [(ngModel)]="presencaAluno.indPresente"></ion-toggle>

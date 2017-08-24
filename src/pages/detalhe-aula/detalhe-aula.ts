@@ -4,6 +4,7 @@ import { Aula } from '../../dto/aula';
 import { ProfessoresPage } from '../../pages/professores/professores';
 import { AnotacoesDaAulaPage } from '../../pages/anotacoes-da-aula/anotacoes-da-aula';
 import { ListaPresencaPage } from '../../pages/lista-presenca/lista-presenca';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'page-detalhe-aula',
@@ -19,9 +20,14 @@ export class DetalheAulaPage {
 	callback :any;
 	 
 	constructor(public navCtrl: NavController, 
+				private sanitizer:DomSanitizer,
               public navParams: NavParams ) {
 		
 		this.recebeParametros();
+	}
+	
+  	sanitize(url:string){
+		return this.sanitizer.bypassSecurityTrustUrl(url);
 	}
   
   myCallbackFunctionProfessor = (professor) => {
@@ -36,7 +42,7 @@ export class DetalheAulaPage {
 			this.aula.professorBackup = professor;
 		});
 	}
-		
+
 	cancelar(){
 		this.cancelou = true;
 		this.callback(this.aula, this.estaAlterando, this.cancelou).execute;

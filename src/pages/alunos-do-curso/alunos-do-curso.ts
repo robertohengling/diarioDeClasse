@@ -7,6 +7,7 @@ import { AlunosPage } from '../../pages/alunos/alunos';
 import { AlunosDoCursoService } from '../../services/alunos-do-curso';
 import { PresencaAlunoService } from '../../services/presenca-aluno';
 
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'page-alunos-do-curso',
   providers: [AlunosDoCursoService, PresencaAlunoService],
@@ -18,6 +19,7 @@ export class AlunosDoCursoPage {
 	
 	constructor(private alunosDoCursoService: AlunosDoCursoService,
 	            private presencaAlunoService: PresencaAlunoService,
+				private sanitizer:DomSanitizer,
 	            public navCtrl: NavController, 
               public navParams: NavParams) {
   
@@ -33,6 +35,9 @@ export class AlunosDoCursoPage {
 		});
 	}
 	
+	sanitize(url:string){
+		return this.sanitizer.bypassSecurityTrustUrl(url);
+	}
   adicionarAluno(){
     this.navCtrl.push(AlunosPage, {callback: this.myCallbackFunction,
                                    estaBuscandoAluno: true} );

@@ -13,19 +13,19 @@ export class Curso {
 	static fromJson (json:any) {
 		if (!json) return;
     
-    let alunosAux : Array<Aluno> = json.aluno_by_rel_aluno_curso;
-    let alunos : Array<Aluno> = new Array<Aluno>();
-    
-    for(let a of alunosAux) {
-      alunos.push(Aluno.fromJson(a));
-    }
-    
-    let aulasAux : Array<Aula> = json.aula_by_id_curso;
-    let aulas  : Array<Aula> = new Array<Aula>();
-    
-    for(let au of aulasAux) {
-      aulas.push(Aula.fromJson(au));
-    }
+		let alunosAux : Array<Aluno> = json.aluno_by_rel_aluno_curso;
+		let alunos : Array<Aluno> = new Array<Aluno>();
+		
+		for(let a of alunosAux) {
+		  alunos.push(Aluno.fromJson(a));
+		}
+		
+		let aulasAux : Array<Aula> = json.aula_by_id_curso;
+		let aulas  : Array<Aula> = new Array<Aula>();
+		
+		for(let au of aulasAux) {
+		  aulas.push(Aula.fromJson(au));
+		}
     
 		return new Curso (
 			parseInt(json.id),

@@ -4,6 +4,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Professor } from '../../dto/professor';
 import { DetalheProfessorPage } from '../../pages/detalhe-professor/detalhe-professor';
 import { ProfessorService } from '../../services/professor';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'page-professores',
@@ -17,6 +18,7 @@ export class ProfessoresPage {
   estaBuscandoProfessor: boolean = false;
 	
 	constructor(private professorService: ProfessorService,
+				private sanitizer:DomSanitizer,
 	            public navCtrl: NavController, 
               public navParams: NavParams) {
 		
@@ -27,6 +29,9 @@ export class ProfessoresPage {
 
 	}
 	
+  	sanitize(url:string){
+		return this.sanitizer.bypassSecurityTrustUrl(url);
+	}
 	onClick(a: Professor){
 		if(this.estaBuscandoProfessor){
       this.callback(a).then(()=>{

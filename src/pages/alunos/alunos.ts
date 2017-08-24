@@ -4,6 +4,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Aluno } from '../../dto/aluno';
 import { DetalheAlunoPage } from '../../pages/detalhe-aluno/detalhe-aluno';
 import { AlunoService } from '../../services/aluno';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'page-alunos',
@@ -18,6 +19,7 @@ export class AlunosPage {
   
 	constructor(private alunoService: AlunoService,
 	            public navCtrl: NavController, 
+				private sanitizer:DomSanitizer,
                 public navParams: NavParams) {
 		
 		this.alunos = new Array<Aluno>();
@@ -40,6 +42,9 @@ export class AlunosPage {
 	}
 	adicionarAluno(){
 		this.navCtrl.push(DetalheAlunoPage, {callback: this.myCallbackFunction} );
+	}
+	sanitize(url:string){
+		return this.sanitizer.bypassSecurityTrustUrl(url);
 	}
 	myCallbackFunction = (aluno, estaAlterando, cancelou) => {
 		return new Promise((resolve, reject) => {

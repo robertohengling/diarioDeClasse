@@ -15,14 +15,14 @@
   Professor
   <ion-item (click)="onClickProfessor();">
     <ion-avatar item-start>
-      <img src="{{aula.professor.foto}}" item-start/>
+      <img [src]="sanitize(aula.professor.foto)" item-start/>
     </ion-avatar>
     {{aula.professor.nome}}
   </ion-item>
   Professor Back-up
   <ion-item (click)="onClickProfessorBackup();">
     <ion-avatar item-start>
-      <img src="{{aula.professorBackup.foto}}" item-start/>
+      <img [src]="sanitize(aula.professorBackup.foto)" item-start/>
     </ion-avatar>
     {{aula.professorBackup.nome}}
   </ion-item>

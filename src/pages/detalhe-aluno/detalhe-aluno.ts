@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Aluno } from '../../dto/aluno';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Base64 } from '@ionic-native/base64';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'page-detalhe-aluno',
@@ -20,6 +21,7 @@ export class DetalheAlunoPage {
 	constructor(public navCtrl: NavController, 
                 public navParams: NavParams,
 				public imagePicker: ImagePicker,
+				private sanitizer:DomSanitizer,
 				private base64: Base64) {
 		
 		this.recebeParametros();
@@ -49,7 +51,9 @@ export class DetalheAlunoPage {
 		}
 		this.callback = this.navParams.get("callback");
 	}
-		
+	sanitize(url:string){
+		return this.sanitizer.bypassSecurityTrustUrl(url);
+	}
 	cancelar(){
 		this.cancelou = true;
 		this.callback(this.aluno, this.estaAlterando, this.cancelou).execute;

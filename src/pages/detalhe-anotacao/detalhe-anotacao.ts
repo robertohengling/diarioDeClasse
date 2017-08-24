@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Anotacao } from '../../dto/anotacao';
 import { ProfessoresPage } from '../../pages/professores/professores';
 import { AlunosPage } from '../../pages/alunos/alunos';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'page-detalhe-anotacao',
@@ -18,11 +19,14 @@ export class DetalheAnotacaoPage {
 	callback :any;
 	 
 	constructor(public navCtrl: NavController, 
+				private sanitizer:DomSanitizer,
               public navParams: NavParams ) {
 		
 		this.recebeParametros();
 	}
-  
+  	sanitize(url:string){
+		return this.sanitizer.bypassSecurityTrustUrl(url);
+	}
   myCallbackFunctionProfessor = (professor) => {
 		return new Promise((resolve, reject) => {
 			

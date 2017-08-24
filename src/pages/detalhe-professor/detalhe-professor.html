@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-	<img src="{{professor.foto}}"  height="150 px" width="150 px">
+	<img [src]="sanitize(professor.foto)"  height="150 px" width="150 px">
 	<button ion-button (click)="buscarFoto()">Buscar Foto</button> 
 	<ion-item>
 		<ion-label floating>Nome</ion-label>

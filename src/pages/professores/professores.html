@@ -12,7 +12,7 @@
 		<ion-item-sliding *ngFor="let professor of professores">
 			<ion-item (click)="onClick(professor);">
 			  <ion-avatar item-start>
-				<img src="{{professor.foto}}" item-start/>
+				<img [src]="sanitize(professor.foto)" item-start/>
 			  </ion-avatar>
 			  {{professor.nome}}
 			</ion-item>
