@@ -38,6 +38,22 @@ export class PresencaAlunoService {
 				return presencasAlunos;
 			}).catch(this.handleError);
 	};
+  queryByIdAluno (id_aluno: number, params?:URLSearchParams): Observable<PresencaAluno[]> {
+		var queryHeaders = new Headers();
+    	queryHeaders.append('Content-Type', 'application/json');
+    	queryHeaders.append('X-Dreamfactory-Session-Token', localStorage.getItem('session_token'));
+    	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);    	
+		return this.httpService.http
+			.get(this.baseResourceUrl+'?filter=id_aluno='+id_aluno, { search: params, headers: queryHeaders})
+			.map((response) => {
+				var result: any = response.json();
+				let presencasAlunos: Array<PresencaAluno> = [];
+				result.resource.forEach((presencaAluno) => {
+					presencasAlunos.push(PresencaAluno.fromJson(presencaAluno));
+				});
+				return presencasAlunos;
+			}).catch(this.handleError);
+	};
 	private handleError (error: any) {
 	   let errMsg = (error.message) ? error.message :
 	   error.status ? `${error.status} - ${error.statusText}` : 'Server error';
@@ -60,6 +76,16 @@ export class PresencaAlunoService {
 			});
 	}
   
+  removeByIdAluno (idAluno: number) {
+		this.queryByIdAluno(idAluno)
+    .subscribe((presencasAlunos: PresencaAluno[]) => {
+        for(let presencaAluno of presencasAlunos){
+          this.remove(String(presencaAluno.id))
+            .subscribe((response) => {
+          });
+        }
+    });
+	}
   patch (idAula: number, presencaAluno: PresencaAluno) {
 		var queryHeaders = new Headers();
     	queryHeaders.append('Content-Type', 'application/json');

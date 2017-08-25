@@ -54,7 +54,8 @@ export class AlunosDoCursoPage {
     }
 	removerAluno(aluno: Aluno) {
         var self = this;
-        this.alunosDoCursoService.remove(this.curso.id, aluno.id)
+        this.presencaAlunoService.removeByIdAluno(aluno.id);
+          this.alunosDoCursoService.remove(this.curso.id, aluno.id)
             .subscribe(() => {
                 self.curso.alunos = self.curso.alunos.filter((item) => {
                     return item.id != aluno.id
