@@ -40,28 +40,14 @@ export class CursosPage {
 				if(estaAlterando){
 				  this.alterarCursoDaLista(curso);
 				} else {
-				  this.adicionarCursoNaLista(curso);
+          this.adicionarCursoEndpoint(curso);
 				}
 			}
 			
 			resolve();
 		});
 	}
-	
-	adicionarCursoNaLista(curso: Curso){
-		let maxId: number =0;
-		
-		for(var i = 0; i < this.cursos.length; i++) { 
 
-			if(this.cursos[i].id > maxId){
-				maxId = this.cursos[i].id;
-			}
-		}
-		
-		curso.id = maxId+1;
-		this.cursos.push(curso);
-		this.adicionarCursoEndpoint(curso);
-	}
 	
 	alterarCursoDaLista(curso: Curso){
 		for(var i = 0; i < this.cursos.length; i++) { 
@@ -112,6 +98,8 @@ export class CursosPage {
 	adicionarCursoEndpoint(curso: Curso){	
 		this.cursoService.post(curso)
                 .subscribe((response) => {
+                
+                  this.getList();
                 });
 	}
 	alterarCursoEndpoint(curso: Curso){	

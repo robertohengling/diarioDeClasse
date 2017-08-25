@@ -89,7 +89,7 @@ export class AlunoService {
     	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);
     	
     	let options = new RequestOptions({ headers: queryHeaders });
-		return this.httpService.http.post(constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/aluno', Aluno.toJson(aluno,true),options)
+		return this.httpService.http.post(constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/aluno', Aluno.toJsonSemId(aluno,true),options)
 			.map((data) => {
 				return data;
 		});

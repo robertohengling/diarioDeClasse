@@ -30,7 +30,7 @@ export class AlunosDoCursoPage {
 	myCallbackFunction = (aluno) => {
 		return new Promise((resolve, reject) => {
 			
-			this.adicionarAlunoNaLista(aluno);
+      this.adicionarAlunoEndpoint(aluno);
 			resolve();
 		});
 	}
@@ -44,10 +44,6 @@ export class AlunosDoCursoPage {
                                    
   }
   
-	adicionarAlunoNaLista(aluno: Aluno){
-		this.curso.alunos.push(aluno);
-    this.adicionarAlunoEndpoint(aluno);
-	}
   
   getList() {
         let self = this;
@@ -68,6 +64,7 @@ export class AlunosDoCursoPage {
 	adicionarAlunoEndpoint(aluno: Aluno){	
 		this.alunosDoCursoService.post(this.curso.id, aluno.id)
                 .subscribe((response) => {
+                  this.getList();
                   this.presencaAlunoService.postByAluno(this.curso.id, aluno);
                 });
 	}

@@ -27,7 +27,7 @@ export class AnotacoesDaAulaPage {
 		this.anotacoes = new Array<Anotacao>();
 		this.aula = <Aula> JSON.parse(this.navParams.get('aula'));
     
-    this.getList();
+    
 	}
   
 	onClick(c: Anotacao){
@@ -46,29 +46,14 @@ export class AnotacoesDaAulaPage {
 				if(estaAlterando){
 				  this.alterarAnotacaoDaLista(anotacao);
 				} else {
-				  this.adicionarAnotacaoNaLista(anotacao);
+          this.adicionarAnotacaoEndpoint(anotacao);
 				}
 			}
 			
 			resolve();
 		});
 	}
-	
-	adicionarAnotacaoNaLista(anotacao: Anotacao){
-		let maxId: number =0;
-		
-		for(var i = 0; i < this.anotacoes.length; i++) { 
 
-			if(this.anotacoes[i].id > maxId){
-				maxId = this.anotacoes[i].id;
-			}
-		}
-		
-		anotacao.id = maxId+1;
-		this.anotacoes.push(anotacao);
-		this.adicionarAnotacaoEndpoint(anotacao);
-	}
-	
 	alterarAnotacaoDaLista(anotacao: Anotacao){
 		for(var i = 0; i < this.anotacoes.length; i++) { 
 
@@ -100,6 +85,7 @@ export class AnotacoesDaAulaPage {
 	adicionarAnotacaoEndpoint(anotacao: Anotacao){	
 		this.anotacaoService.post(this.aula.id, anotacao)
                 .subscribe((response) => {
+                  this.getList();
                 });
 	}
 	alterarAnotacaoEndpoint(anotacao: Anotacao){	

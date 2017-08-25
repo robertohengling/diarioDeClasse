@@ -26,4 +26,12 @@ export class Aluno {
 
 		return stringify ? JSON.stringify({ resource: [doc] }) : doc;
 	}
+  static toJsonSemId (aluno: Aluno, stringify?: boolean):any {
+		var doc = {
+			nome: aluno.nome,
+			foto: aluno.foto
+		};
+
+		return stringify ? JSON.stringify({ resource: [doc] }) : doc;
+	}
 }

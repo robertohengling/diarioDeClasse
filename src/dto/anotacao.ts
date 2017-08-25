@@ -40,4 +40,17 @@ export class Anotacao {
 
 		return stringify ? JSON.stringify({ resource: [doc] }) : doc;
 	}
+	static toJsonSemId (anotacao: Anotacao, idAula: number, stringify?: boolean):any {
+		var doc = {
+      assunto: anotacao.assunto,
+      texto: anotacao.texto,
+      id_aula: idAula,
+      id_professor: anotacao.professor.id,
+      id_aluno: anotacao.aluno.id,
+      desempenhoTurma: anotacao.desempenhoTurma,
+      desempenhoAluno: anotacao.desempenhoAluno
+		};
+
+		return stringify ? JSON.stringify({ resource: [doc] }) : doc;
+	}
 }

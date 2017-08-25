@@ -81,7 +81,7 @@ export class PresencaAlunoService {
     	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);
     	
     	let options = new RequestOptions({ headers: queryHeaders });
-      return this.httpService.http.post(this.baseResourceUrl, PresencaAluno.toJson(presencaAluno,idAula,true),options)
+      return this.httpService.http.post(this.baseResourceUrl, PresencaAluno.toJsonSemId(presencaAluno,idAula,true),options)
         .map((data) => {
           return data;
 		});
@@ -91,7 +91,7 @@ export class PresencaAlunoService {
     this.alunosDoCursoService.query(idCurso)
     .subscribe((alunos: Aluno[]) => {
         for(let aluno of alunos){
-          let presencaAluno = new PresencaAluno(parseInt(String(idAula)+String(aluno.id)),aluno,false);
+          let presencaAluno = new PresencaAluno(null,aluno,false);
           this.post(idAula, presencaAluno)
             .subscribe((response) => {
           });
@@ -103,7 +103,7 @@ export class PresencaAlunoService {
     this.aulaService.query(idCurso)
     .subscribe((aulas: Aula[]) => {
         for(let aula of aulas){
-          let presencaAluno = new PresencaAluno(parseInt(String(aula.id)+String(aluno.id)),aluno,false);
+          let presencaAluno = new PresencaAluno(null,aluno,false);
           this.post(aula.id, presencaAluno)
             .subscribe((response) => {
           });

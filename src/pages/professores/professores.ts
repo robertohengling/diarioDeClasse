@@ -56,7 +56,6 @@ export class ProfessoresPage {
 				  this.alterarProfessorDaLista(professor);
 				  this.alterarProfessorEndpoint(professor);
 				} else {
-				  this.adicionarProfessorNaLista(professor);
 				  this.adicionarProfessorEndpoint(professor);
 				}
 			}
@@ -64,20 +63,7 @@ export class ProfessoresPage {
 			resolve();
 		});
 	}
-	
-	adicionarProfessorNaLista(professor: Professor){
-		let maxId: number =0;
-		
-		for(var i = 0; i < this.professores.length; i++) { 
 
-			if(this.professores[i].id > maxId){
-				maxId = this.professores[i].id;
-			}
-		}
-		
-		professor.id = maxId+1;
-		this.professores.push(professor);
-	}
 	
 	alterarProfessorDaLista(professor: Professor){
 		for(var i = 0; i < this.professores.length; i++) { 
@@ -115,6 +101,7 @@ export class ProfessoresPage {
 	adicionarProfessorEndpoint(professor: Professor){	
 		this.professorService.post(professor)
                 .subscribe((response) => {
+                  this.getList();
                 });
 	}
 	alterarProfessorEndpoint(professor: Professor){	

@@ -48,7 +48,7 @@ export class AulasDoCursoPage {
 				if(estaAlterando){
 				  this.alterarAulaDaLista(aula);
 				} else {
-				  this.adicionarAulaNaLista(aula);
+				  this.adicionarAulaEndpoint(aula);
 				}
 			}
 			
@@ -59,21 +59,6 @@ export class AulasDoCursoPage {
   formataData(data: Date): string{
     return data.toLocaleString();
   }
-  
-	adicionarAulaNaLista(aula: Aula){
-		let maxId: number =0;
-		
-		for(var i = 0; i < this.aulas.length; i++) { 
-
-			if(this.aulas[i].id > maxId){
-				maxId = this.aulas[i].id;
-			}
-		}
-		
-		aula.id = maxId+1;
-		this.aulas.push(aula);
-		this.adicionarAulaEndpoint(aula);
-	}
 	
 	alterarAulaDaLista(aula: Aula){
 		for(var i = 0; i < this.aulas.length; i++) { 
@@ -105,7 +90,10 @@ export class AulasDoCursoPage {
 	adicionarAulaEndpoint(aula: Aula){	
 		this.aulaService.post(this.curso.id, aula)
                 .subscribe((response) => {
-                this.presencaAlunoService.postByAula(this.curso.id, aula.id);
+                  this.getList();
+                  console.log(response.json());
+                  
+                  this.presencaAlunoService.postByAula(this.curso.id, response.json().resource[0].id);
                 });
                 
 	}

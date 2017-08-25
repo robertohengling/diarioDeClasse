@@ -58,7 +58,7 @@ export class AulaService {
             var result: any = response.json();
             return result.id;
           }).subscribe((response) => {
-          });;
+          });
           
           var result: any = response.json();
           return result.id;
@@ -88,7 +88,7 @@ export class AulaService {
     	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);
     	
     	let options = new RequestOptions({ headers: queryHeaders });
-		return this.httpService.http.post(constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/aula', Aula.toJson(aula,idCurso,true),options)
+		return this.httpService.http.post(constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/aula', Aula.toJsonSemId(aula,idCurso,true),options)
 			.map((data) => {
 				console.log('Passou aqui');
 				return data;

@@ -54,7 +54,6 @@ export class AlunosPage {
 				  this.alterarAlunoDaLista(aluno);
 				  this.alterarAlunoEndpoint(aluno);
 				} else {
-				  this.adicionarAlunoNaLista(aluno);
 				  this.adicionarAlunoEndpoint(aluno);
 				}
 			}
@@ -63,19 +62,6 @@ export class AlunosPage {
 		});
 	}
 	
-	adicionarAlunoNaLista(aluno: Aluno){
-		let maxId: number =0;
-		
-		for(var i = 0; i < this.alunos.length; i++) { 
-
-			if(this.alunos[i].id > maxId){
-				maxId = this.alunos[i].id;
-			}
-		}
-		
-		aluno.id = maxId+1;
-		this.alunos.push(aluno);
-	}
 	
 	alterarAlunoDaLista(aluno: Aluno){
 		for(var i = 0; i < this.alunos.length; i++) { 
@@ -112,6 +98,8 @@ export class AlunosPage {
 	adicionarAlunoEndpoint(aluno: Aluno){	
 		this.alunoService.post(aluno)
                 .subscribe((response) => {
+
+                  this.getList();
                 });
 	}
 	alterarAlunoEndpoint(aluno: Aluno){	

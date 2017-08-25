@@ -28,4 +28,13 @@ export class Professor {
 
 		return stringify ? JSON.stringify({ resource: [doc] }) : doc;
 	}
+  static toJsonSemId (professor: Professor, stringify?: boolean):any {
+		var doc = {
+			nome: professor.nome,
+			email: professor.email,
+			foto: professor.foto
+		};
+
+		return stringify ? JSON.stringify({ resource: [doc] }) : doc;
+	}
 }

@@ -37,4 +37,18 @@ export class PresencaAluno {
 
 		return stringify ? JSON.stringify({ resource: [doc] }) : doc;
 	}
+	static toJsonSemId (presencaAluno: PresencaAluno, idAula: number, stringify?: boolean):any {
+    let ind_presente :string = 'N';
+    
+    if(presencaAluno.indPresente){
+      ind_presente = 'S';
+    }
+		var doc = {
+      id_aula: idAula,
+			id_aluno: presencaAluno.aluno.id,
+			ind_presente: ind_presente
+		};
+
+		return stringify ? JSON.stringify({ resource: [doc] }) : doc;
+	}
 }

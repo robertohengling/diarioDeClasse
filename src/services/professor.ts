@@ -89,7 +89,7 @@ export class ProfessorService {
     	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);
     	
     	let options = new RequestOptions({ headers: queryHeaders });
-		return this.httpService.http.post(constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/professor', Professor.toJson(professor,true),options)
+		return this.httpService.http.post(constants.DREAMFACTORY_INSTANCE_URL + '/api/v2/mysql/_table/professor', Professor.toJsonSemId(professor,true),options)
 			.map((data) => {
 				return data;
 		});

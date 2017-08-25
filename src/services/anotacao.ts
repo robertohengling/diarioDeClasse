@@ -75,7 +75,7 @@ export class AnotacaoService {
     	queryHeaders.append('X-Dreamfactory-API-Key', constants.DREAMFACTORY_API_KEY);
     	
     	let options = new RequestOptions({ headers: queryHeaders });
-		return this.httpService.http.post(this.baseResourceUrl, Anotacao.toJson(anotacao,idAula,true),options)
+		return this.httpService.http.post(this.baseResourceUrl, Anotacao.toJsonSemId(anotacao,idAula,true),options)
 			.map((data) => {
 				return data;
 		});
