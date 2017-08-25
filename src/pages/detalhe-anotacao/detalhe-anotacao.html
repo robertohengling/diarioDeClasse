@@ -19,16 +19,18 @@
   
   Professor
   <ion-item (click)="onClickProfessor();">
-    <ion-avatar item-start>
+    <ion-avatar item-start *ngIf="anotacao.professor.foto">
       <img [src]="sanitize(anotacao.professor.foto)" item-start/>
     </ion-avatar>
+	<ion-icon name="image" *ngIf="!anotacao.professor.foto"></ion-icon>
     {{anotacao.professor.nome}}
   </ion-item>
   Aluno
   <ion-item (click)="onClickAluno();">
-    <ion-avatar item-start>
+	<ion-avatar item-start *ngIf="anotacao.aluno.foto">
       <img [src]="sanitize(anotacao.aluno.foto)" item-start/>
     </ion-avatar>
+	<ion-icon name="image" *ngIf="!anotacao.aluno.foto"></ion-icon>
     {{anotacao.aluno.nome}}
   </ion-item>
   <ion-item *ngIf="!anotacao.aluno.nome">

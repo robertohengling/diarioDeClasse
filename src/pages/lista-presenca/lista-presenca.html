@@ -8,13 +8,14 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let presencaAluno of presencasAlunos">
-      <ion-avatar item-start>
-        <img [src]="sanitize(presencaAluno.aluno.foto)" item-start/>
-      </ion-avatar>
-      <ion-label>{{presencaAluno.aluno.nome}}</ion-label>
-      <ion-toggle [(ngModel)]="presencaAluno.indPresente"></ion-toggle>
+	<ion-list>
+		<ion-item *ngFor="let presencaAluno of presencasAlunos">
+			<ion-avatar *ngIf="presencaAluno.aluno.foto" item-start>
+				<img [src]="sanitize(presencaAluno.aluno.foto)" item-start/>
+			</ion-avatar>
+			<ion-icon name="image" *ngIf="!presencaAluno.aluno.foto"></ion-icon>
+			<ion-label>{{presencaAluno.aluno.nome}}</ion-label>
+			<ion-toggle [(ngModel)]="presencaAluno.indPresente"></ion-toggle>
       
     </ion-item>
   </ion-list>

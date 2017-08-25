@@ -14,20 +14,22 @@
   </ion-item>
   Professor
   <ion-item (click)="onClickProfessor();">
-    <ion-avatar item-start>
+    <ion-avatar item-start *ngIf="aula.professor.foto">
       <img [src]="sanitize(aula.professor.foto)" item-start/>
     </ion-avatar>
+	<ion-icon name="image" *ngIf="!aula.professor.foto"></ion-icon>
     {{aula.professor.nome}}
   </ion-item>
   Professor Back-up
   <ion-item (click)="onClickProfessorBackup();">
-    <ion-avatar item-start>
+	<ion-avatar item-start *ngIf="aula.professorBackup.foto">
       <img [src]="sanitize(aula.professorBackup.foto)" item-start/>
     </ion-avatar>
+	<ion-icon name="image" *ngIf="!aula.professorBackup.foto"></ion-icon>
     {{aula.professorBackup.nome}}
   </ion-item>
-  <button ion-button (click)="onClickAnotacoesDaAula()">Anotações</button> 
-  <button ion-button (click)="onClickPresencaDaAula()">Lista de Presença</button>  
+  <button ion-button *ngIf="estaAlterando" (click)="onClickAnotacoesDaAula()">Anotações</button> 
+  <button ion-button *ngIf="estaAlterando" (click)="onClickPresencaDaAula()">Lista de Presença</button> 
 	<ion-footer>
 		<ion-toolbar color="danger" (click)="cancelar()">
 			<div style="text-align: center;">

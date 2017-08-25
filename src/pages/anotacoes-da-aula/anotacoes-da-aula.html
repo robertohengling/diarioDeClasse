@@ -11,8 +11,10 @@
 	<ion-list>
 		<ion-item-sliding *ngFor="let anotacao of anotacoes">
 			<ion-item (click)="onClick(anotacao);">
-				{{anotacao.assunto}}
-        {{anotacao.professor.nome}}
+				
+				<ion-label> {{anotacao.assunto}} </ion-label>
+				<ion-label class="alignme">	{{anotacao.professor.nome}} </ion-label>
+				
 			</ion-item>
 			<ion-item-options side="left">
 				<button color="danger" ion-button (click)="removerAnotacao(anotacao);">Remover</button>

@@ -16,8 +16,8 @@
 		<ion-label floating>Descrição</ion-label>
 		<ion-input [(ngModel)]="curso.descricao"></ion-input>
 	</ion-item>
-  <button ion-button (click)="onClickAlunosDoCurso()">Alunos</button> 
-  <button ion-button (click)="onClickAulasDoCurso()">Aulas</button> 
+  <button ion-button *ngIf="estaAlterando" (click)="onClickAlunosDoCurso()">Alunos</button> 
+  <button ion-button *ngIf="estaAlterando" (click)="onClickAulasDoCurso()">Aulas</button> 
 	<ion-footer>
 		<ion-toolbar color="danger" (click)="cancelar()">
 			<div style="text-align: center;">

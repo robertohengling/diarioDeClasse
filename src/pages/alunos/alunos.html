@@ -11,9 +11,10 @@
 	<ion-list>
 		<ion-item-sliding *ngFor="let aluno of alunos">
 			<ion-item (click)="onClick(aluno);">
-			  <ion-avatar item-start>
+			  <ion-avatar *ngIf="aluno.foto" item-start>
 				<img [src]="sanitize(aluno.foto)" item-start/>
 			  </ion-avatar>
+			  <ion-icon name="image" *ngIf="!aluno.foto"></ion-icon>
 			  {{aluno.nome}}
 			</ion-item>
 			<ion-item-options side="left">

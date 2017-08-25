@@ -40,7 +40,7 @@ export class CursosPage {
 				if(estaAlterando){
 				  this.alterarCursoDaLista(curso);
 				} else {
-          this.adicionarCursoEndpoint(curso);
+					this.adicionarCursoEndpoint(curso);
 				}
 			}
 			

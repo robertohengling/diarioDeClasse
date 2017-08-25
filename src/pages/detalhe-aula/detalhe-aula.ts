@@ -29,7 +29,6 @@ export class DetalheAulaPage {
   	sanitize(url:string){
 		return this.sanitizer.bypassSecurityTrustUrl(url);
 	}
-  
   myCallbackFunctionProfessor = (professor) => {
 		return new Promise((resolve, reject) => {
 			
@@ -59,11 +58,11 @@ export class DetalheAulaPage {
 		
 		if(c){
 			this.aula = <Aula> JSON.parse(c);
-			this.titulo = this.aula.dataHora.toLocaleString();
+			this.titulo = 'Detalhes da Aula';
 			this.estaAlterando = true;
 		  
 		} else {
-			this.titulo =  'Novo aula...'
+			this.titulo =  'Nova aula...'
 			this.estaAlterando = false;
 			this.aula = new Aula();
 		}

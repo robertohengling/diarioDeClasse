@@ -26,7 +26,7 @@ export class AnotacoesDaAulaPage {
 
 		this.anotacoes = new Array<Anotacao>();
 		this.aula = <Aula> JSON.parse(this.navParams.get('aula'));
-    
+        this.getList();
     
 	}
   

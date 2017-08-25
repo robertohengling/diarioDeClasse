@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content>
-	<img [src]="sanitize(aluno.foto)"  height="150 px" width="150 px">
-	<button ion-button (click)="buscarFoto()">Buscar Foto</button> 
+	<img [src]="sanitize(aluno.foto)"  height="150 px" width="150 px" (click)="buscarFoto()" *ngIf="aluno.foto" >
+	<button ion-button (click)="buscarFoto()" *ngIf="!aluno.foto" >Buscar Foto</button> 
 	<ion-item>
 		<ion-label floating>Nome</ion-label>
 		<ion-input [(ngModel)]="aluno.nome"></ion-input>

@@ -55,11 +55,11 @@ export class AulasDoCursoPage {
 			resolve();
 		});
 	}
-	
-  formataData(data: Date): string{
-    return data.toLocaleString();
-  }
-	
+
+	formataData(data: Date): string{
+		return data.toLocaleString();
+	}
+
 	alterarAulaDaLista(aula: Aula){
 		for(var i = 0; i < this.aulas.length; i++) { 
 
